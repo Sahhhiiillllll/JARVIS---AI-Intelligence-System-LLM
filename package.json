@@ -1,0 +1,15 @@
+{
+  "name": "jarvis-ai-intelligence-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "J.A.R.V.I.S — AI Intelligence System with voice-enabled HUD interface",
+  "scripts": {
+    "build": "echo 'Static frontend — no build step required'",
+    "dev": "vercel dev",
+    "start:local": "python main.py",
+    "start:frontend": "python -m http.server 8080 --directory frontend"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

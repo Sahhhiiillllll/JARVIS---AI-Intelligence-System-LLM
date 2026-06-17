@@ -1,0 +1,11 @@
+# Local development extras (WebSocket server + audio I/O)
+# Install with: pip install -r requirements-local.txt
+-r requirements.txt
+
+# ── WebSocket server (local main.py) ──────────────────────────────
+websockets>=12.0
+
+# ── Audio I/O (microphone + TTS on local machine) ─────────────────
+pyaudio>=0.2.11
+SpeechRecognition>=3.10.0
+pyttsx3>=2.90

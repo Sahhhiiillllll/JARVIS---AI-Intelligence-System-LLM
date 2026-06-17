@@ -1,0 +1,82 @@
+# J.A.R.V.I.S — GitHub Actions CI/CD
+# ===================================
+# Continuous Integration and Deployment pipeline
+
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      # Optional: Add any services needed for testing
+      # postgres:
+      #   image: postgres:13
+      #   env:
+      #     POSTGRES_USER: test
+      #     POSTGRES_PASSWORD: test
+      #     POSTGRES_DB: test
+      #   ports: [5432:5432]
+      #   options: >-
+      #     --health-cmd "pg_isready -U test -d test"
+      #     --health-interval 10s
+      #     --health-timeout 5s
+      #     --health-retries 5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-local.txt
+
+    - name: Lint code
+      run: |
+        # Add linting if configured
+        echo "Linting step - configure flake8/pylint if desired"
+
+    - name: Run tests
+      run: |
+        pytest tests.py -v
+
+    - name: Build Docker image
+      run: |
+        docker build -t jarvis:${{ github.sha }} .
+
+    - name: Test Docker image
+      run: |
+        # Run container briefly to verify it starts
+        docker run --rm jarvis:${{ github.sha }} python -c "from config import get_config; print('Config loaded successfully')"
+
+  # Optional: Deploy job (uncomment and configure for actual deployment)
+  # deploy:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main'
+  #
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
+  #
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v5
+  #     with:
+  #       python-version: '3.11'
+  #
+  #   - name: Deploy to staging/production
+  #     # Add your deployment logic here (e.g., to Docker Hub, AWS, etc.)
+  #     run: |
+  #       echo "Deployment step - configure your deployment target"

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>J.A.R.V.I.S — Unified Intelligence Core</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="space.css">
+</head>
+<body>
+  <!-- Preloader Space Opening -->
+  <div id="preloader" class="preloader">
+    <div class="starfield"></div>
+    <div class="nebula"></div>
+    <div class="loading-text">INITIALIZING J.A.R.V.I.S...</div>
+  </div>
+
+  <!-- ═══════════════════════════════════ SCAN LINES OVERLAY ═══════════════════════════════════ -->
+  <div class="scanlines"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- ═══════════════════════════════════ HEADER BAR ═══════════════════════════════════ -->
+  <header class="hud-header">
+    <div class="header-left">
+      <span class="logo-text">J.A.R.V.I.S V6.5</span>
+      <span class="logo-sub">UNIVERSAL CHARACTER AI & CHAT ACCELERATOR</span>
+    </div>
+    <div class="header-center">
+      <div class="status-pill" id="statusPill">
+        <span class="status-dot"></span>
+        <span id="statusText">STANDBY</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hud-clock" id="hudClock">--:--:--</div>
+      <div class="hud-date" id="hudDate">---</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════ MAIN LAYOUT ═══════════════════════════════════ -->
+  <main class="main-layout">
+
+    <!-- ─────────────────── LEFT PANEL ─────────────────── -->
+    <aside class="side-panel left-panel">
+
+      <!-- Boot Sequence HUD -->
+      <div class="panel-card boot-card" style="font-family: var(--font-display); background: rgba(0, 100, 200, 0.1); border: 1px solid rgba(0, 200, 255, 0.4); padding: 20px; text-transform: uppercase;">
+        <div style="font-size: 24px; color: var(--c-cyan); font-weight: 900; letter-spacing: 4px; margin-bottom: 5px;">J.A.R.V.I.S V6.5</div>
+        <div style="font-size: 10px; color: var(--c-text-dim); letter-spacing: 2px; margin-bottom: 20px;">UNIVERSAL CHARACTER AI & CHAT ACCELERATOR</div>
+        
+        <div class="boot-sequence" style="font-family: var(--font-mono); font-size: 11px; color: var(--c-cyan); line-height: 1.8; letter-spacing: 1px;">
+          <div>LOADING HIGH-FREQUENCY NLP TOKENIZER... <span style="color: var(--c-ok); float: right;">READY</span></div>
+          <div>INITIALIZING NEURAL CONTEXT STREAM... <span style="color: var(--c-ok); float: right;">ACTIVE</span></div>
+          <div>PULLING LOCAL MEMORY VECTOR DATABASE... <span style="color: var(--c-ok); float: right;">COMPILED</span></div>
+          <div>MONITORING HARDWARE TEMPERATURE SENSORS... <span style="color: var(--c-ok); float: right;">NORMAL</span></div>
+          <div>ROUTING AUDIO PRE-PROCESSING FILTERS... <span style="color: var(--c-ok); float: right;">ACTIVE</span></div>
+          <div>PARSING CUSTOM USER BEHAVIOR PATTERNS... <span style="color: var(--c-ok); float: right;">LOADED</span></div>
+          <div>CALIBRATING SYNTHETIC MAPPING SENSORS... <span style="color: var(--c-ok); float: right;">SYNCHRONIZED</span></div>
+          <div>CONNECTING CLOUD REPLICATOR MEMORY STACK... <span style="color: var(--c-ok); float: right;">SECURED</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ─────────────────── CENTER: CORE ─────────────────── -->
+    <section class="center-core">
+      <!-- Arc Reactor Canvas -->
+      <div class="core-wrapper">
+        <canvas id="coreCanvas" width="420" height="420"></canvas>
+        <div class="core-label" id="coreLabel">IDLE</div>
+        <div class="core-sublabel" id="coreSublabel">Awaiting command...</div>
+      </div>
+
+      <!-- Voice Button -->
+      <div class="voice-controls">
+        <button class="voice-btn" id="voiceBtn" title="Hold to speak">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>
+          </svg>
+        </button>
+        <span class="voice-hint" id="voiceHint">CLICK TO SPEAK</span>
+      </div>
+
+      <!-- Text Input Fallback -->
+      <div class="text-input-row">
+        <input type="text" id="textInput" class="jarvis-input" placeholder="Or type your command here..." autocomplete="off"/>
+        <button class="send-btn" id="sendBtn">SEND</button>
+      </div>
+    </section>
+
+    <!-- ─────────────────── RIGHT PANEL ─────────────────── -->
+    <aside class="side-panel right-panel">
+
+      <!-- Chat History -->
+      <div class="panel-card chat-card">
+        <div class="card-header">
+          <span class="card-icon">◉</span>
+          <span>CONVERSATION LOG</span>
+          <button class="clear-btn" id="clearChatBtn" title="Clear history">✕</button>
+        </div>
+        <div class="chat-history" id="chatHistory">
+          <div class="chat-msg jarvis">
+            <div class="msg-avatar">J</div>
+            <div class="msg-content">
+              <span class="msg-sender">JARVIS</span>
+              <p>All systems initialized. Neural networks calibrated. How can I assist you today?</p>
+              <span class="msg-time">BOOT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal Log -->
+      <div class="panel-card terminal-card">
+        <div class="card-header">
+          <span class="card-icon">▶</span>
+          <span>NEURAL TERMINAL</span>
+          <span class="terminal-blink">●</span>
+        </div>
+        <div class="terminal-log" id="terminalLog">
+          <div class="t-line">[BOOT] J.A.R.V.I.S core initialized</div>
+          <div class="t-line">[BOOT] Loading neural weight matrices...</div>
+          <div class="t-line">[BOOT] Audio pipeline calibrated</div>
+          <div class="t-line">[BOOT] Intent classifier ready</div>
+          <div class="t-line">[SYS ] All subsystems nominal ✓</div>
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- ═══════════════════════════════════ CORNER DECORATIONS ═══════════════════════════════════ -->
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

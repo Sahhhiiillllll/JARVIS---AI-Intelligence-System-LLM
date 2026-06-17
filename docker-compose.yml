@@ -1,0 +1,42 @@
+# J.A.R.V.I.S — docker-compose.yml
+# ================================
+# Easy local development and testing
+
+version: '3.8'
+
+services:
+  jarvis:
+    build: .
+    ports:
+      - "8765:8765"   # WebSocket server
+      - "8865:8865"   # HTTP health/metrics server (port + 1000)
+    volumes:
+      - ./logs:/app/logs:rw
+      - ./.env:/app/.env:ro
+    environment:
+      - JARVIS_HOST=0.0.0.0
+      - JARVIS_PORT=8765
+      # Add your API keys here or use .env file
+      # - ANTHROPIC_API_KEY=your_key_here
+      # - WOLFRAM_APP_ID=your_app_id_here
+      # - OPENWEATHER_API_KEY=your_key_here
+      # - JARVIS_CITY=New York
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8865/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+# Optional: Add a frontend service for development
+# frontend:
+#   image: node:18-alpine
+#   working_dir: /app
+#   volumes:
+#     - ./frontend:/app
+#   command: ["sh", "-c", "npm install && npm run dev"]
+#   ports:
+#     - "3000:3000"
+#   depends_on:
+#     - jarvis

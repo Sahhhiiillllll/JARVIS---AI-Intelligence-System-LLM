@@ -1,0 +1,71 @@
+/* ══════════ PRELOADER SPACE OPENING ══════════ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 1.5s ease-out;
+}
+.preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+.starfield {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+}
+.starfield::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.8) 0px, transparent 10%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.6) 0px, transparent 10%),
+    radial-gradient(circle at 40% 60%, rgba(255,255,255,0.4) 0px, transparent 10%),
+    radial-gradient(circle at 70% 50%, rgba(255,255,255,0.3) 0px, transparent 10%);
+  animation: moveStars 60s linear infinite;
+  background-size: 200% 200%;
+}
+@keyframes moveStars {
+  0% { background-position: 0 0; }
+  100% { background-position: -200% -200%; }
+}
+.nebula {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0, 100, 255, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(100, 0, 255, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(0, 200, 255, 0.1) 0%, transparent 50%);
+  animation: nebulaPulse 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes nebulaPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+.loading-text {
+  position: relative;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  color: #00dcff;
+  text-shadow: 0 0 10px #00dcff, 0 0 20px rgba(0,220,255,0.3);
+  animation: textPulse 2s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes textPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
