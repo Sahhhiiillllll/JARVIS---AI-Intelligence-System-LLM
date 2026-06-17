@@ -451,14 +451,6 @@ JARVIS---AI-Intelligence-System-LLM/
 
 ---
 
-## Acknowledgements
 
-Inspired by J.A.R.V.I.S. from Marvel's Iron Man. Built with [Anthropic Claude](https://www.anthropic.com/), [FastAPI](https://fastapi.tiangolo.com/), [Vercel](https://vercel.com/), and vanilla web technologies.
 
-## Disclaimer
 
-Educational project only. Not affiliated with Marvel, Disney, or Iron Man franchise properties.
-
-## License
-
-MIT — see [LICENSE](LICENSE).
