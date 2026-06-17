@@ -372,7 +372,9 @@ class SchedulerTool(BaseTool):
 
         # ── Set reminder ──
         reminder_match = re.search(
-            r'remind(?:er)?\s+(?:me\s+)?(?:to\s+)?(.+?)\s+(?:at|in)\s+([\d:apmAPM\s]+)', text
+            r'remind(?:er)?\s+(?:me\s+)?(?:to\s+)?(.+?)\s+(?:at|in)\s+([\d:apmAPM\s]+)',
+            text,
+            re.IGNORECASE,
         )
         if reminder_match:
             task = reminder_match.group(1).strip()
@@ -382,7 +384,7 @@ class SchedulerTool(BaseTool):
             return self._result(reply, "scheduler", f"Reminder set: {task} @ {when}")
 
         # ── List reminders ──
-        if re.search(r'\b(list|show|what are my)\s+reminder', t):
+        if re.search(r'\b(list|show)\s+(?:my\s+)?reminders?\b', t) or re.search(r'what are my reminders?', t):
             if not self._reminders:
                 return self._result("You have no active reminders.", "scheduler", "No reminders")
             items = "; ".join(f"'{r['task']}' at {r['when']}" for r in self._reminders)

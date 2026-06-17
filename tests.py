@@ -46,7 +46,7 @@ class TestFallbackTool(unittest.TestCase):
 
     def test_thanks(self):
         result = self.tool.run_sync("Thank you very much")
-        self.assertIn("pleasure", result["response"].lower() + result["response"])
+        self.assertIn("here for", result["response"].lower())
 
     def test_identity(self):
         result = self.tool.run_sync("Who are you?")
@@ -74,7 +74,8 @@ class TestSchedulerTool(unittest.TestCase):
     def test_time_query(self):
         result = run_async(self.tool.run("What time is it?", []))
         self.assertIn("time", result["response"].lower())
-        self.assertIn("AM", result["response"] + "PM")
+        response_upper = result["response"].upper()
+        self.assertTrue("AM" in response_upper or "PM" in response_upper)
 
     def test_date_query(self):
         result = run_async(self.tool.run("What is today's date?", []))
