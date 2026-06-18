@@ -70,3 +70,21 @@ async def health_check():
         "message": "J.A.R.V.I.S API is online.",
         "mode": "serverless",
     }
+
+
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+public_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public")
+
+# Explicit route for the root to serve index.html directly
+@app.get("/")
+async def serve_index():
+    index_path = os.path.join(public_dir, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return {"detail": "Frontend index.html not found"}
+
+# Mount the rest of the public directory for all other static files
+if os.path.exists(public_dir):
+    app.mount("/", StaticFiles(directory=public_dir), name="static")
