@@ -70,7 +70,7 @@ async def health_check():
         "message": "J.A.R.V.I.S API is online.",
         "mode": "serverless",
     }
-}
+
 
 from mangum import Mangum
 
